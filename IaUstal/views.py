@@ -1,7 +1,9 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
+from .filters import ItemFilter
 from .models import Item
 from .serializers import ItemSerializer
 from django.contrib.auth.models import User
@@ -15,6 +17,8 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ItemFilter
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]

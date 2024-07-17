@@ -1,3 +1,4 @@
+from django_filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -22,14 +23,27 @@ from .models import Item
 from .serializers import ItemSerializer
 
 
+
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    filterset_fields = ['name', 'price']  # Adjust fields as needed
-    ordering_fields = ['price', 'name']
-    search_fields = ['name', 'description']
     pagination_class = ItemPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['name', 'price']
+    ordering_fields = ['name', 'price']
+
+    def get_queryset(self):
+        queryset = self.queryset
+        # Apply filters
+        filterset = self.filter_class(self.request.query_params, queryset=queryset)
+        queryset = filterset.qs
+
+        # Apply ordering based on request parameter 'ordering'
+        ordering = self.request.query_params.get('ordering', None)
+        if ordering:
+            queryset = queryset.order_by(ordering)
+
+        return queryset
 
 #
 class UserProfileView(APIView):

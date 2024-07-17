@@ -13,12 +13,22 @@ from rest_framework.response import Response
 from .serializers import UserSerializer
 
 
+# items/views.py
+
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Item
+from .serializers import ItemSerializer
+
+
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    # permission_classes = [IsAuthenticated]
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_class = ItemFilter
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    filterset_fields = ['category', 'price']  # Adjust fields as needed
+    ordering_fields = ['price', 'name']
+    search_fields = ['name', 'description']
+
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]

@@ -29,7 +29,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
     pagination_class = ItemPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_class = ItemFilter  # Correct attribute for the filter class
+    filterset_fields = ['name', 'price']
     ordering_fields = ['name', 'price']
 
 #

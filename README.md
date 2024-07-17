@@ -43,7 +43,6 @@ Update the `DATABASES` configuration in `settings.py` with your PostgreSQL datab
 ### Apply Migrations
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 

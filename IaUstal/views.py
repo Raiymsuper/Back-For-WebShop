@@ -24,7 +24,7 @@ from .serializers import ItemSerializer
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Item.objects.all().order_by('-price')
     serializer_class = ItemSerializer
     pagination_class = ItemPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]

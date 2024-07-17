@@ -31,7 +31,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description']
     pagination_class = ItemPagination
 
-
+#
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 

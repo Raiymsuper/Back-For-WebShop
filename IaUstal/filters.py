@@ -1,11 +1,12 @@
-from django_filters import rest_framework as filters
-from .models import Item
+from django_filters.rest_framework import FilterSet
+import django_filters
+
+from IaUstal import models
 
 
-class ItemFilter(filters.FilterSet):
-    name = filters.CharFilter(lookup_expr='icontains')  # Case-insensitive partial match
-    price = filters.NumberFilter()
+class ItemFilter(FilterSet):
+    name = django_filters.CharFilter(lookup_expr="iexact")
 
     class Meta:
-        model = Item
-        fields = ['name', 'price']
+        model = models.Item
+        fields = ['price', 'name']

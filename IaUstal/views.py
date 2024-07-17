@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from .filters import ItemFilter
 from .models import Item
+from .pagination import ItemPagination
 from .serializers import ItemSerializer
 from django.contrib.auth.models import User
 from rest_framework import generics
@@ -28,6 +29,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     filterset_fields = ['name', 'price']  # Adjust fields as needed
     ordering_fields = ['price', 'name']
     search_fields = ['name', 'description']
+    pagination_class = ItemPagination
 
 
 class UserProfileView(APIView):

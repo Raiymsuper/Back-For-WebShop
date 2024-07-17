@@ -31,7 +31,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = ItemFilter  # Correct attribute for the filter class
     ordering_fields = ['name', 'price']
-
+#
 #
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]

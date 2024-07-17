@@ -24,12 +24,20 @@ from .serializers import ItemSerializer
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all().order_by('-price')
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     pagination_class = ItemPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = ItemFilter
     ordering_fields = ['name', 'price']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        ordering = self.request.query_params.get('ordering')
+        if ordering:
+            queryset = queryset.order_by(ordering)
+        return queryset
+
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]

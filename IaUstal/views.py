@@ -32,7 +32,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['name', 'price']
     ordering_fields = ['name', 'price']
-
+    #
     def get_queryset(self):
         queryset = self.queryset
         # Apply filters

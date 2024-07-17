@@ -28,23 +28,9 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     pagination_class = ItemPagination
-    filter_class = ItemFilter
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ['name', 'price']
+    filterset_class = ItemFilter  # Correct attribute for the filter class
     ordering_fields = ['name', 'price']
-    #
-    def get_queryset(self):
-        queryset = self.queryset
-        # Apply filters
-        filterset = self.filter_class(self.request.query_params, queryset=queryset)
-        queryset = filterset.qs
-
-        # Apply ordering based on request parameter 'ordering'
-        ordering = self.request.query_params.get('ordering', None)
-        if ordering:
-            queryset = queryset.order_by(ordering)
-
-        return queryset
 
 #
 class UserProfileView(APIView):

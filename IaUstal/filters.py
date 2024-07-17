@@ -1,12 +1,11 @@
-from django_filters.rest_framework import FilterSet
 import django_filters
+from .models import Item
 
-from IaUstal import models
 
-
-class ItemFilter(FilterSet):
-    name = django_filters.CharFilter(lookup_expr="iexact")
+class ItemFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(field_name='name', lookup_expr='icontains')
+    price = django_filters.NumberFilter(field_name='price')
 
     class Meta:
-        model = models.Item
-        fields = ['price', 'name']
+        model = Item
+        fields = ['name', 'price']

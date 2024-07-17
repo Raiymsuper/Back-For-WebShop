@@ -28,6 +28,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     pagination_class = ItemPagination
+    filter_class = ItemFilter
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['name', 'price']
     ordering_fields = ['name', 'price']

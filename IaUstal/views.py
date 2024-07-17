@@ -25,7 +25,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    filterset_fields = ['category', 'price']  # Adjust fields as needed
+    filterset_fields = ['name', 'price']  # Adjust fields as needed
     ordering_fields = ['price', 'name']
     search_fields = ['name', 'description']
 

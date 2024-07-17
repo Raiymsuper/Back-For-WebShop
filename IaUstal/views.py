@@ -16,9 +16,9 @@ from .serializers import UserSerializer
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    permission_classes = [IsAuthenticated]
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = ItemFilter
+    # permission_classes = [IsAuthenticated]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_class = ItemFilter
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
